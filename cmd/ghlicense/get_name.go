@@ -15,9 +15,10 @@ func init() {
 }
 
 var getNameCmd = &cobra.Command{
-	Use:   "name <repo-url>",
-	Short: "Get the GitHub-reported license of a repo.",
-	Args:  cobra.ExactArgs(1),
+	Use:          "name <repo-url>",
+	Short:        "Get the GitHub-reported license of a repo.",
+	Args:         cobra.ExactArgs(1),
+	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		repoURL := args[0]
 
