@@ -43,7 +43,7 @@ func (c *Client) GetLicense(ctx context.Context, repoURL string) (*github.Reposi
 
 	_, r, err := c.Repositories.Get(ctx, owner, repo)
 	if err != nil {
-		if r.StatusCode == http.StatusNotFound {
+		if r != nil && r.StatusCode == http.StatusNotFound {
 			return nil, ErrRepoNotFound
 		}
 		return nil, err
@@ -51,7 +51,7 @@ func (c *Client) GetLicense(ctx context.Context, repoURL string) (*github.Reposi
 
 	lic, r, err := c.Repositories.License(ctx, owner, repo)
 	if err != nil {
-		if r.StatusCode == http.StatusNotFound {
+		if r != nil && r.StatusCode == http.StatusNotFound {
 			return nil, ErrLicenseNotFound
 		}
 		return nil, errors.Wrap(err, "retrieve license")
